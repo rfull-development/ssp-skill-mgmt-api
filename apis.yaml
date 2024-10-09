@@ -1,0 +1,11 @@
+﻿name: Skill Management OpenAPI registry
+description: This repository contains the OpenAPI definitions for Skill Management APIs.
+tags:
+- rfull-development
+apis:
+- name: Skill Management API v1.0
+  description: The Skill Management API provides endpoints for managing skills.
+  baseUrl: https://api.example.com/skills/v1.0
+  properties:
+  - type: x-openapi
+    url: schemas/apis/v1.0/openapi.yaml

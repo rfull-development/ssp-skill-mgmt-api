@@ -1,0 +1,34 @@
+﻿{
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "skills",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "SKILL_MGMT_DB_HOST": "postgres",
+        "SKILL_MGMT_DB_PORT": "5432",
+        "SKILL_MGMT_DB_SSL_MODE": "Disable",
+        "SKILL_MGMT_DB_POOLING_MIN_SIZE": "0",
+        "SKILL_MGMT_DB_POOLING_MAX_SIZE": "100",
+        "SKILL_MGMT_DB_USERNAME": "postgres",
+        "SKILL_MGMT_DB_PASSWORD": "postgres",
+        "SKILL_MGMT_DB_NAME": "skill",
+        "SKILL_MGMT_DB_SCHEMA": "public"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5088"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/skills",
+      "environmentVariables": {
+        "ASPNETCORE_HTTP_PORTS": "8080"
+      },
+      "publishAllPorts": true,
+      "useSSL": false
+    }
+  },
+  "$schema": "http://json.schemastore.org/launchsettings.json"
+}
