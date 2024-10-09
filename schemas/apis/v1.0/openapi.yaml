@@ -1,0 +1,587 @@
+﻿openapi: 3.0.3
+info:
+  title: Skill Management API Specification
+  version: 1.0.0
+  license:
+    name: MIT
+    url: https://opensource.org/license/mit/
+servers:
+  - url: http://localhost:5088
+    description: Development Server
+tags:
+  - name: Skill
+    description: Skill
+  - name: Tag
+    description: Tag
+components:
+  schemas:
+    Skill:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/SkillTag'
+        aliases:
+          type: array
+          items:
+            type: string
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/SkillLink'
+    SkillTag:
+      allOf:
+        - $ref: '#/components/schemas/Tag'
+    SkillLink:
+      type: object
+      required:
+        - title
+        - url
+      properties:
+        title:
+          type: string
+        url:
+          type: string
+    SkillListGetResponse:
+      type: object
+      required:
+        - totalCount
+        - count
+        - skills
+      properties:
+        totalCount:
+          type: integer
+          format: int64
+        count:
+          type: integer
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/Skill'
+    SkillCreateRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+    SkillCreateResponse:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+    SkillGetResponse:
+      allOf:
+        - $ref: '#/components/schemas/Skill'
+    SkillUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+    SkillTagListGetResponse:
+      type: object
+      required:
+        - count
+        - tags
+      properties:
+        count:
+          type: integer
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/SkillTag'
+    SkillTagListUpdateRequest:
+      type: object
+      required:
+        - tags
+      properties:
+        tagIds:
+          type: array
+          items:
+            type: string
+    SkillAliasListGetResponse:
+      type: object
+      required:
+        - count
+        - aliases
+      properties:
+        count:
+          type: integer
+        aliases:
+          type: array
+          items:
+            type: string
+    SkillAliasListUpdateRequest:
+      type: object
+      required:
+        - aliases
+      properties:
+        aliases:
+          type: array
+          items:
+            type: string
+    SkillLinkListGetResponse:
+      type: object
+      required:
+        - count
+        - links
+      properties:
+        count:
+          type: integer
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/SkillLink'
+    SkillLinkListUpdateRequest:
+      type: object
+      required:
+        - links
+      properties:
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/SkillLink'
+    Tag:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    TagListGetResponse:
+      type: object
+      required:
+        - totalCount
+        - count
+        - tags
+      properties:
+        totalCount:
+          type: integer
+          format: int64
+        count:
+          type: integer
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    TagCreateRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+    TagCreateResponse:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+    TagGetResponse:
+      allOf:
+        - $ref: '#/components/schemas/Tag'
+    TagUpdateRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+paths:
+  /skills:
+    get:
+      tags:
+        - Skill
+      summary: Retrieves a list of skill.
+      operationId: getSkillList
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SkillListGetResponse'
+        '503':
+          description: Service Unavailable
+    post:
+      tags:
+        - Skill
+      summary: Create a new skill.
+      operationId: createSkill
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SkillCreateRequest'
+      responses:
+        '201':
+          headers:
+            Location:
+              schema:
+                type: string
+                format: uri
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SkillCreateResponse'
+        '409':
+          description: Conflict
+        '503':
+          description: Service Unavailable
+  /skills/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - Skill
+      summary: Retrieves a skill.
+      operationId: getSkill
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SkillGetResponse'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '503':
+          description: Service Unavailable
+    patch:
+      tags:
+        - Skill
+      summary: Create or update the properties of a skill.
+      operationId: updateSkill
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SkillUpdateRequest'
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict'
+        '503':
+          description: Service Unavailable
+    delete:
+      tags:
+        - Skill
+      summary: Delete a skill.
+      operationId: deleteSkill
+      responses:
+        '202':
+          description: Accepted
+        '404':
+          description: Not Found
+        '503':
+          description: Service Unavailable
+  /skills/{id}/tags:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - Skill
+      summary: Retrieves a list of tags of a skill.
+      operationId: getSkillTagList
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SkillTagListGetResponse'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '503':
+          description: Service Unavailable
+    put:
+      tags:
+        - Skill
+      summary: Replace the tags of a skill.
+      operationId: replaceSkillTag
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SkillTagListUpdateRequest'
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+        '503':
+          description: Service Unavailable
+    delete:
+      tags:
+        - Skill
+      summary: Delete all tags of a skill.
+      operationId: deleteSkillTag
+      responses:
+        '202':
+          description: Accepted
+        '404':
+          description: Not Found
+        '503':
+          description: Service Unavailable
+  /skills/{id}/aliases:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - Skill
+      summary: Retrieves a list of aliases of a skill.
+      operationId: getSkillAliasList
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SkillAliasListGetResponse'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '503':
+          description: Service Unavailable
+    put:
+      tags:
+        - Skill
+      summary: Replace the aliases of a skill.
+      operationId: replaceSkillAlias
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SkillAliasListUpdateRequest'
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+        '503':
+          description: Service Unavailable
+    delete:
+      tags:
+        - Skill
+      summary: Delete all aliases of a skill.
+      operationId: deleteSkillAlias
+      responses:
+        '202':
+          description: Accepted
+        '404':
+          description: Not Found
+        '503':
+          description: Service Unavailable
+  /skills/{id}/links:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - Skill
+      summary: Retrieves a list of links of a skill.
+      operationId: getSkillLinkList
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SkillLinkListGetResponse'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '503':
+          description: Service Unavailable
+    put:
+      tags:
+        - Skill
+      summary: Replace the links of a skill.
+      operationId: replaceSkillLink
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SkillLinkListUpdateRequest'
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+        '503':
+          description: Service Unavailable
+    delete:
+      tags:
+        - Skill
+      summary: Delete all links of a skill.
+      operationId: deleteSkillLink
+      responses:
+        '202':
+          description: Accepted
+        '404':
+          description: Not Found
+        '503':
+          description: Service Unavailable
+  /tags:
+    get:
+      tags:
+        - Tag
+      summary: Retrieves a list of tag.
+      operationId: getTagList
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagListGetResponse'
+        '503':
+          description: Service Unavailable
+    post:
+      tags:
+        - Tag
+      summary: Create a new tag.
+      operationId: createTag
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagCreateRequest'
+      responses:
+        '201':
+          headers:
+            Location:
+              schema:
+                type: string
+                format: uri
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagCreateResponse'
+        '409':
+          description: Conflict
+        '503':
+          description: Service Unavailable
+  /tags/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - Tag
+      summary: Retrieves a tag.
+      operationId: getTag
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagGetResponse'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '503':
+          description: Service Unavailable
+    patch:
+      tags:
+        - Tag
+      summary: Update the properties of a tag.
+      operationId: updateTag
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagUpdateRequest'
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+        '503':
+          description: Service Unavailable
+    delete:
+      tags:
+        - Tag
+      summary: Delete a tag.
+      operationId: deleteTag
+      responses:
+        '202':
+          description: Accepted
+        '404':
+          description: Not Found
+        '503':
+          description: Service Unavailable
