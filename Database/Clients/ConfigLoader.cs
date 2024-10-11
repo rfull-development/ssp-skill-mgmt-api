@@ -6,6 +6,8 @@ namespace SkillManagementApi.Database.Clients
 {
     public static class ConfigLoader
     {
+        private const string ROOT_PREFIX = "SKILL_MGMT_DB_";
+
         public static readonly Config Config;
 
         static ConfigLoader()
@@ -16,12 +18,13 @@ namespace SkillManagementApi.Database.Clients
         private static Config LoadConfig()
         {
             ConfigurationBuilder builder = new();
-            builder.AddEnvironmentVariables("SKILL_MGMT_DB_");
+            builder.AddEnvironmentVariables(ROOT_PREFIX);
             var configuration = builder.Build();
 
-            string host = configuration["HOST"] ?? throw new InvalidOperationException();
-            int port = int.Parse(configuration["PORT"] ?? throw new InvalidOperationException());
-            string sslMode = configuration["SSL_MODE"] ?? throw new InvalidOperationException();
+            string host = configuration["HOST"] ?? string.Empty;
+            string portRaw = configuration["PORT"] ?? string.Empty;
+            int port = int.Parse(portRaw);
+            string sslMode = configuration["SSL_MODE"] ?? string.Empty;
             var pooling = LoadPoolingSection(configuration);
             var account = LoadAccountSection(configuration);
             var database = LoadDatabaseSection(configuration);
@@ -39,14 +42,15 @@ namespace SkillManagementApi.Database.Clients
 
         private static Config.PoolingSection? LoadPoolingSection(IConfigurationRoot configuration)
         {
-            string? minSizeRaw = configuration["POOLING_MIN_SIZE"];
-            string? maxSizeRaw = configuration["POOLING_MAX_SIZE"];
-            if ((minSizeRaw is null) && (maxSizeRaw is null))
+            string minSizeRaw = configuration["POOLING_MIN_SIZE"] ?? string.Empty;
+            string maxSizeRaw = configuration["POOLING_MAX_SIZE"] ?? string.Empty;
+            if (string.IsNullOrEmpty(minSizeRaw) &&
+                string.IsNullOrEmpty(maxSizeRaw))
             {
                 return null;
             }
-            int minSize = int.Parse(minSizeRaw ?? throw new InvalidOperationException());
-            int maxSize = int.Parse(maxSizeRaw ?? throw new InvalidOperationException());
+            int minSize = int.Parse(minSizeRaw);
+            int maxSize = int.Parse(maxSizeRaw);
             Config.PoolingSection pooling = new()
             {
                 MinSize = minSize,
@@ -57,8 +61,8 @@ namespace SkillManagementApi.Database.Clients
 
         private static Config.AccountSection LoadAccountSection(IConfigurationRoot section)
         {
-            string username = section["USERNAME"] ?? throw new InvalidOperationException();
-            string password = section["PASSWORD"] ?? throw new InvalidOperationException();
+            string username = section["USERNAME"] ?? string.Empty;
+            string password = section["PASSWORD"] ?? string.Empty;
             Config.AccountSection account = new()
             {
                 Username = username,
@@ -69,8 +73,8 @@ namespace SkillManagementApi.Database.Clients
 
         private static Config.DatabaseSection LoadDatabaseSection(IConfigurationRoot section)
         {
-            string name = section["NAME"] ?? throw new InvalidOperationException();
-            string schema = section["SCHEMA"] ?? throw new InvalidOperationException();
+            string name = section["NAME"] ?? string.Empty;
+            string schema = section["SCHEMA"] ?? string.Empty;
             Config.DatabaseSection database = new()
             {
                 Name = name,
