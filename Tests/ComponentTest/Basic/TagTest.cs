@@ -52,7 +52,7 @@ namespace ComponentTest.Basic
                 {
                     Name = $"Test Tag-{Guid.NewGuid()}"
                 };
-                TagCreateResponse? response = await _client.Tags.PostAsync(request);
+                var response = await _client.Tags.PostAsync(request);
                 if (response is null)
                 {
                     Assert.Fail("Failed to get response.");
@@ -73,14 +73,14 @@ namespace ComponentTest.Basic
         [TestMethod]
         public async Task CreateTag_Duplicate()
         {
-            string name = $"Test Tag-{Guid.NewGuid()}";
+            string name;
             try
             {
                 TagCreateRequest request = new()
                 {
-                    Name = name
+                    Name = $"Test Tag-{Guid.NewGuid()}"
                 };
-                TagCreateResponse? response = await _client.Tags.PostAsync(request);
+                var response = await _client.Tags.PostAsync(request);
                 if (response is null)
                 {
                     Assert.Inconclusive();
@@ -91,6 +91,7 @@ namespace ComponentTest.Basic
                     Assert.Inconclusive();
                     return;
                 }
+                name = request.Name;
             }
             catch (Exception exception)
             {
@@ -117,7 +118,7 @@ namespace ComponentTest.Basic
         {
             try
             {
-                TagListGetResponse? response = await _client.Tags.GetAsTagListGetResponseAsync();
+                var response = await _client.Tags.GetAsTagListGetResponseAsync();
                 if (response is null)
                 {
                     Assert.Fail("Failed to get response.");
@@ -141,14 +142,14 @@ namespace ComponentTest.Basic
         public async Task GetTag()
         {
             string id;
-            string name = $"Test Tag-{Guid.NewGuid()}";
+            string name;
             try
             {
                 TagCreateRequest request = new()
                 {
-                    Name = name
+                    Name = $"Test Tag-{Guid.NewGuid()}"
                 };
-                TagCreateResponse? response = await _client.Tags.PostAsync(request);
+                var response = await _client.Tags.PostAsync(request);
                 if ((response is null) ||
                     string.IsNullOrEmpty(response.Id))
                 {
@@ -156,6 +157,7 @@ namespace ComponentTest.Basic
                     return;
                 }
                 id = response.Id;
+                name = request.Name;
             }
             catch (Exception exception)
             {
@@ -165,8 +167,7 @@ namespace ComponentTest.Basic
 
             try
             {
-                TagGetResponse? response;
-                response = await _client.Tags[id].GetAsTagGetResponseAsync();
+                var response = await _client.Tags[id].GetAsTagGetResponseAsync();
                 if (response is null)
                 {
                     Assert.Fail("Failed to get response.");
@@ -204,7 +205,7 @@ namespace ComponentTest.Basic
                 {
                     Name = $"Test Tag-{Guid.NewGuid()}"
                 };
-                TagCreateResponse? response = await _client.Tags.PostAsync(request);
+                var response = await _client.Tags.PostAsync(request);
                 if ((response is null) ||
                     string.IsNullOrEmpty(response.Id))
                 {
@@ -219,14 +220,15 @@ namespace ComponentTest.Basic
                 return;
             }
 
-            string name = $"Test Tag-{Guid.NewGuid()}";
+            string name;
             try
             {
                 TagUpdateRequest request = new()
                 {
-                    Name = name
+                    Name = $"Test Tag-{Guid.NewGuid()}"
                 };
                 await _client.Tags[id].PatchAsync(request);
+                name = request.Name;
             }
             catch (Exception exception)
             {
@@ -236,8 +238,7 @@ namespace ComponentTest.Basic
 
             try
             {
-                TagGetResponse? response;
-                response = await _client.Tags[id].GetAsTagGetResponseAsync();
+                var response = await _client.Tags[id].GetAsTagGetResponseAsync();
                 if (response is null)
                 {
                     Assert.Inconclusive();
@@ -262,7 +263,7 @@ namespace ComponentTest.Basic
                 {
                     Name = $"Test Tag-{Guid.NewGuid()}"
                 };
-                TagCreateResponse? response = await _client.Tags.PostAsync(request);
+                var response = await _client.Tags.PostAsync(request);
                 if ((response is null) ||
                     string.IsNullOrEmpty(response.Id))
                 {
@@ -291,14 +292,15 @@ namespace ComponentTest.Basic
                 return;
             }
 
-            string name = $"Test Tag-{Guid.NewGuid()}";
+            string name;
             try
             {
                 TagUpdateRequest request = new()
                 {
-                    Name = name
+                    Name = $"Test Tag-{Guid.NewGuid()}"
                 };
                 await _client.Tags[id].PatchAsync(request);
+                name = request.Name;
             }
             catch (Exception exception)
             {
@@ -308,8 +310,7 @@ namespace ComponentTest.Basic
 
             try
             {
-                TagGetResponse? response;
-                response = await _client.Tags[id].GetAsTagGetResponseAsync();
+                var response = await _client.Tags[id].GetAsTagGetResponseAsync();
                 if (response is null)
                 {
                     Assert.Inconclusive();
@@ -351,7 +352,7 @@ namespace ComponentTest.Basic
                 {
                     Name = $"Test Tag-{Guid.NewGuid()}"
                 };
-                TagCreateResponse? response = await _client.Tags.PostAsync(request);
+                var response = await _client.Tags.PostAsync(request);
                 if ((response is null) ||
                     string.IsNullOrEmpty(response.Id))
                 {

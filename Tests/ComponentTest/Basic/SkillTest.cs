@@ -52,7 +52,7 @@ namespace ComponentTest.Basic
                 {
                     Name = $"Test Skill-{Guid.NewGuid()}"
                 };
-                SkillCreateResponse? response = await _client.Skills.PostAsync(request);
+                var response = await _client.Skills.PostAsync(request);
                 if (response is null)
                 {
                     Assert.Fail("Failed to get response.");
@@ -74,14 +74,14 @@ namespace ComponentTest.Basic
         [TestMethod]
         public async Task CreateSkill_Duplicate()
         {
-            string name = $"Test Skill-{Guid.NewGuid()}";
+            string name;
             try
             {
                 SkillCreateRequest request = new()
                 {
-                    Name = name
+                    Name = $"Test Skill-{Guid.NewGuid()}"
                 };
-                SkillCreateResponse? response = await _client.Skills.PostAsync(request);
+                var response = await _client.Skills.PostAsync(request);
                 if (response is null)
                 {
                     Assert.Inconclusive();
@@ -92,6 +92,7 @@ namespace ComponentTest.Basic
                     Assert.Inconclusive();
                     return;
                 }
+                name = request.Name;
             }
             catch (Exception ex)
             {
@@ -119,7 +120,7 @@ namespace ComponentTest.Basic
         {
             try
             {
-                SkillListGetResponse? response = await _client.Skills.GetAsSkillListGetResponseAsync();
+                var response = await _client.Skills.GetAsSkillListGetResponseAsync();
                 if (response is null)
                 {
                     Assert.Fail("Failed to get response.");
@@ -144,14 +145,14 @@ namespace ComponentTest.Basic
         public async Task GetSkill()
         {
             string id;
-            string name = $"Test Skill-{Guid.NewGuid()}";
+            string name;
             try
             {
                 SkillCreateRequest request = new()
                 {
-                    Name = name
+                    Name = $"Test Skill-{Guid.NewGuid()}"
                 };
-                SkillCreateResponse? response = await _client.Skills.PostAsync(request);
+                var response = await _client.Skills.PostAsync(request);
                 if ((response is null) ||
                     string.IsNullOrEmpty(response.Id))
                 {
@@ -159,6 +160,7 @@ namespace ComponentTest.Basic
                     return;
                 }
                 id = response.Id;
+                name = request.Name;
             }
             catch (Exception exception)
             {
@@ -168,8 +170,7 @@ namespace ComponentTest.Basic
 
             try
             {
-                SkillGetResponse? response;
-                response = await _client.Skills[id].GetAsSkillGetResponseAsync();
+                var response = await _client.Skills[id].GetAsSkillGetResponseAsync();
                 if (response is null)
                 {
                     Assert.Fail("Failed to get response.");
@@ -209,7 +210,7 @@ namespace ComponentTest.Basic
                 {
                     Name = $"Test Skill-{Guid.NewGuid()}"
                 };
-                SkillCreateResponse? response = await _client.Skills.PostAsync(request);
+                var response = await _client.Skills.PostAsync(request);
                 if ((response is null) ||
                     string.IsNullOrEmpty(response.Id))
                 {
@@ -224,14 +225,15 @@ namespace ComponentTest.Basic
                 return;
             }
 
-            string name = $"Test Skill-{Guid.NewGuid()}";
+            string name;
             try
             {
                 SkillUpdateRequest request = new()
                 {
-                    Name = name
+                    Name = $"Test Skill-{Guid.NewGuid()}"
                 };
                 await _client.Skills[id].PatchAsync(request);
+                name = request.Name;
             }
             catch (Exception exception)
             {
@@ -241,8 +243,7 @@ namespace ComponentTest.Basic
 
             try
             {
-                SkillGetResponse? response;
-                response = await _client.Skills[id].GetAsSkillGetResponseAsync();
+                var response = await _client.Skills[id].GetAsSkillGetResponseAsync();
                 if (response is null)
                 {
                     Assert.Inconclusive();
@@ -267,7 +268,7 @@ namespace ComponentTest.Basic
                 {
                     Name = $"Test Skill-{Guid.NewGuid()}"
                 };
-                SkillCreateResponse? response = await _client.Skills.PostAsync(request);
+                var response = await _client.Skills.PostAsync(request);
                 if ((response is null) ||
                     string.IsNullOrEmpty(response.Id))
                 {
@@ -296,14 +297,15 @@ namespace ComponentTest.Basic
                 return;
             }
 
-            string name = $"Test Skill-{Guid.NewGuid()}";
+            string name;
             try
             {
                 SkillUpdateRequest request = new()
                 {
-                    Name = name
+                    Name = $"Test Skill-{Guid.NewGuid()}"
                 };
                 await _client.Skills[id].PatchAsync(request);
+                name = request.Name;
             }
             catch (Exception exception)
             {
@@ -313,8 +315,7 @@ namespace ComponentTest.Basic
 
             try
             {
-                SkillGetResponse? response;
-                response = await _client.Skills[id].GetAsSkillGetResponseAsync();
+                var response = await _client.Skills[id].GetAsSkillGetResponseAsync();
                 if (response is null)
                 {
                     Assert.Inconclusive();
@@ -358,7 +359,7 @@ namespace ComponentTest.Basic
                 {
                     Name = $"Test Skill-{Guid.NewGuid()}"
                 };
-                SkillCreateResponse? response = await _client.Skills.PostAsync(request);
+                var response = await _client.Skills.PostAsync(request);
                 if ((response is null) ||
                     string.IsNullOrEmpty(response.Id))
                 {
@@ -419,7 +420,7 @@ namespace ComponentTest.Basic
                 {
                     Name = $"Test Skill-{Guid.NewGuid()}"
                 };
-                SkillCreateResponse? response = await _client.Skills.PostAsync(request);
+                var response = await _client.Skills.PostAsync(request);
                 if ((response is null) ||
                     string.IsNullOrEmpty(response.Id))
                 {
@@ -436,8 +437,7 @@ namespace ComponentTest.Basic
 
             try
             {
-                SkillTagListGetResponse? response;
-                response = await _client.Skills[id].Tags.GetAsSkillTagListGetResponseAsync();
+                var response = await _client.Skills[id].Tags.GetAsSkillTagListGetResponseAsync();
                 if (response is null)
                 {
                     Assert.Fail("Failed to get response.");
@@ -462,7 +462,7 @@ namespace ComponentTest.Basic
                 {
                     Name = $"Test Skill-{Guid.NewGuid()}"
                 };
-                SkillCreateResponse? response = await _client.Skills.PostAsync(request);
+                var response = await _client.Skills.PostAsync(request);
                 if ((response is null) ||
                     string.IsNullOrEmpty(response.Id))
                 {
@@ -484,7 +484,7 @@ namespace ComponentTest.Basic
                 {
                     Name = $"Test Tag-{Guid.NewGuid()}"
                 };
-                TagCreateResponse? response = await _client.Tags.PostAsync(request);
+                var response = await _client.Tags.PostAsync(request);
                 if ((response is null) ||
                     string.IsNullOrEmpty(response.Id))
                 {
@@ -523,7 +523,7 @@ namespace ComponentTest.Basic
 
             try
             {
-                SkillTagListGetResponse? response = await _client.Skills[id].Tags.GetAsSkillTagListGetResponseAsync();
+                var response = await _client.Skills[id].Tags.GetAsSkillTagListGetResponseAsync();
                 if (response is null)
                 {
                     Assert.Inconclusive();
@@ -579,7 +579,7 @@ namespace ComponentTest.Basic
                 {
                     Name = $"Test Skill-{Guid.NewGuid()}"
                 };
-                SkillCreateResponse? response = await _client.Skills.PostAsync(request);
+                var response = await _client.Skills.PostAsync(request);
                 if ((response is null) ||
                     string.IsNullOrEmpty(response.Id))
                 {
@@ -622,7 +622,7 @@ namespace ComponentTest.Basic
                 {
                     Name = $"Test Skill-{Guid.NewGuid()}"
                 };
-                SkillCreateResponse? response = await _client.Skills.PostAsync(request);
+                var response = await _client.Skills.PostAsync(request);
                 if ((response is null) ||
                     string.IsNullOrEmpty(response.Id))
                 {
@@ -644,7 +644,7 @@ namespace ComponentTest.Basic
                 {
                     Name = $"Test Tag-{Guid.NewGuid()}"
                 };
-                TagCreateResponse? response = await _client.Tags.PostAsync(request);
+                var response = await _client.Tags.PostAsync(request);
                 if ((response is null) ||
                     string.IsNullOrEmpty(response.Id))
                 {
@@ -692,8 +692,7 @@ namespace ComponentTest.Basic
 
             try
             {
-                SkillTagListGetResponse? response;
-                response = await _client.Skills[id].Tags.GetAsSkillTagListGetResponseAsync();
+                var response = await _client.Skills[id].Tags.GetAsSkillTagListGetResponseAsync();
                 if (response is null)
                 {
                     Assert.Inconclusive();
@@ -733,7 +732,7 @@ namespace ComponentTest.Basic
                 {
                     Name = $"Test Skill-{Guid.NewGuid()}"
                 };
-                SkillCreateResponse? response = await _client.Skills.PostAsync(request);
+                var response = await _client.Skills.PostAsync(request);
                 if ((response is null) ||
                     string.IsNullOrEmpty(response.Id))
                 {
@@ -750,8 +749,7 @@ namespace ComponentTest.Basic
 
             try
             {
-                SkillAliasListGetResponse? response;
-                response = await _client.Skills[id].Aliases.GetAsSkillAliasListGetResponseAsync();
+                var response = await _client.Skills[id].Aliases.GetAsSkillAliasListGetResponseAsync();
                 if (response is null)
                 {
                     Assert.Fail("Failed to get response.");
@@ -776,7 +774,7 @@ namespace ComponentTest.Basic
                 {
                     Name = $"Test Skill-{Guid.NewGuid()}"
                 };
-                SkillCreateResponse? response = await _client.Skills.PostAsync(request);
+                var response = await _client.Skills.PostAsync(request);
                 if ((response is null) ||
                     string.IsNullOrEmpty(response.Id))
                 {
@@ -801,7 +799,7 @@ namespace ComponentTest.Basic
                 {
                     Name = $"Test Skill-{Guid.NewGuid()}"
                 };
-                SkillCreateResponse? response = await _client.Skills.PostAsync(request);
+                var response = await _client.Skills.PostAsync(request);
                 if ((response is null) ||
                     string.IsNullOrEmpty(response.Id))
                 {
@@ -832,8 +830,7 @@ namespace ComponentTest.Basic
 
             try
             {
-                SkillAliasListGetResponse? response;
-                response = await _client.Skills[id].Aliases.GetAsSkillAliasListGetResponseAsync();
+                var response = await _client.Skills[id].Aliases.GetAsSkillAliasListGetResponseAsync();
                 if (response is null)
                 {
                     Assert.Inconclusive();
@@ -889,7 +886,7 @@ namespace ComponentTest.Basic
                 {
                     Name = $"Test Skill-{Guid.NewGuid()}"
                 };
-                SkillCreateResponse? response = await _client.Skills.PostAsync(request);
+                var response = await _client.Skills.PostAsync(request);
                 if ((response is null) ||
                     string.IsNullOrEmpty(response.Id))
                 {
@@ -931,7 +928,7 @@ namespace ComponentTest.Basic
                 {
                     Name = $"Test Skill-{Guid.NewGuid()}"
                 };
-                SkillCreateResponse? response = await _client.Skills.PostAsync(request);
+                var response = await _client.Skills.PostAsync(request);
                 if ((response is null) ||
                     string.IsNullOrEmpty(response.Id))
                 {
@@ -956,7 +953,7 @@ namespace ComponentTest.Basic
                 {
                     Name = $"Test Skill-{Guid.NewGuid()}"
                 };
-                SkillCreateResponse? response = await _client.Skills.PostAsync(request);
+                var response = await _client.Skills.PostAsync(request);
                 if ((response is null) ||
                     string.IsNullOrEmpty(response.Id))
                 {
@@ -997,8 +994,7 @@ namespace ComponentTest.Basic
 
             try
             {
-                SkillAliasListGetResponse? response;
-                response = await _client.Skills[id].Aliases.GetAsSkillAliasListGetResponseAsync();
+                var response = await _client.Skills[id].Aliases.GetAsSkillAliasListGetResponseAsync();
                 if (response is null)
                 {
                     Assert.Inconclusive();
@@ -1038,7 +1034,7 @@ namespace ComponentTest.Basic
                 {
                     Name = $"Test Skill-{Guid.NewGuid()}"
                 };
-                SkillCreateResponse? response = await _client.Skills.PostAsync(request);
+                var response = await _client.Skills.PostAsync(request);
                 if ((response is null) ||
                     string.IsNullOrEmpty(response.Id))
                 {
@@ -1055,8 +1051,7 @@ namespace ComponentTest.Basic
 
             try
             {
-                SkillLinkListGetResponse? response;
-                response = await _client.Skills[id].Links.GetAsSkillLinkListGetResponseAsync();
+                var response = await _client.Skills[id].Links.GetAsSkillLinkListGetResponseAsync();
                 if (response is null)
                 {
                     Assert.Fail("Failed to get response.");
@@ -1081,7 +1076,7 @@ namespace ComponentTest.Basic
                 {
                     Name = $"Test Skill-{Guid.NewGuid()}"
                 };
-                SkillCreateResponse? response = await _client.Skills.PostAsync(request);
+                var response = await _client.Skills.PostAsync(request);
                 if ((response is null) ||
                     string.IsNullOrEmpty(response.Id))
                 {
@@ -1121,8 +1116,7 @@ namespace ComponentTest.Basic
 
             try
             {
-                SkillLinkListGetResponse? response;
-                response = await _client.Skills[id].Links.GetAsSkillLinkListGetResponseAsync();
+                var response = await _client.Skills[id].Links.GetAsSkillLinkListGetResponseAsync();
                 if (response is null)
                 {
                     Assert.Inconclusive();
@@ -1193,7 +1187,7 @@ namespace ComponentTest.Basic
                 {
                     Name = $"Test Skill-{Guid.NewGuid()}"
                 };
-                SkillCreateResponse? response = await _client.Skills.PostAsync(request);
+                var response = await _client.Skills.PostAsync(request);
                 if ((response is null) ||
                     string.IsNullOrEmpty(response.Id))
                 {
@@ -1243,8 +1237,7 @@ namespace ComponentTest.Basic
 
             try
             {
-                SkillLinkListGetResponse? response;
-                response = await _client.Skills[id].Links.GetAsSkillLinkListGetResponseAsync();
+                var response = await _client.Skills[id].Links.GetAsSkillLinkListGetResponseAsync();
                 if (response is null)
                 {
                     Assert.Inconclusive();

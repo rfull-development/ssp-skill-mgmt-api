@@ -291,10 +291,10 @@ namespace SkillManagementApi.Database.Clients.Postgres
             try
             {
                 string table = GetTableName<TagAllocListItem>();
+                string columns = GenerateColumnListQuery<TagAllocListItem>();
                 string query = $"""
                 SELECT
-                    "id",
-                    "name"
+                    {columns}
                 FROM
                     {table}
                 WHERE
