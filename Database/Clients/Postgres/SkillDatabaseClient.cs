@@ -291,7 +291,9 @@ namespace SkillManagementApi.Database.Clients.Postgres
             try
             {
                 string table = GetTableName<TagAllocListItem>();
-                string columns = GenerateColumnListQuery<TagAllocListItem>();
+                string columns = GenerateColumnListQuery<Tag>([
+                    nameof(Tag.Version)
+                    ]);
                 string query = $"""
                 SELECT
                     {columns}

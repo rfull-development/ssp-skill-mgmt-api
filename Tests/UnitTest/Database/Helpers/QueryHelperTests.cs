@@ -34,16 +34,14 @@ namespace UnitTest.Database.Helpers
         }
 
         [TestMethod]
-        public void GetPropertyNameListTest()
+        public void GetTableName()
         {
-            List<string> names = QueryHelper.GetPropertyNameList(_model);
-            Assert.AreEqual(2, names.Count);
-            Assert.AreEqual("Id", names[0]);
-            Assert.AreEqual("Name", names[1]);
+            string name = QueryHelper.GetTableName<TargetModel>();
+            Assert.AreEqual("test", name);
         }
 
         [TestMethod]
-        public void GetPropertyNameListTest_Exclude()
+        public void GetPropertyNameList_Exclude()
         {
             List<string> names = QueryHelper.GetPropertyNameList(_model, [
                 "Id"
@@ -53,7 +51,7 @@ namespace UnitTest.Database.Helpers
         }
 
         [TestMethod]
-        public void GetPropertyNameListAllTest()
+        public void GetPropertyNameList_All()
         {
             List<string> names = QueryHelper.GetPropertyNameList<TargetModel>();
             Assert.AreEqual(2, names.Count);
@@ -62,7 +60,17 @@ namespace UnitTest.Database.Helpers
         }
 
         [TestMethod]
-        public void GetColumnNameListTest()
+        public void GetPropertyNameList_All_Exclude()
+        {
+            List<string> names = QueryHelper.GetPropertyNameList<TargetModel>([
+                "Id"
+            ]);
+            Assert.AreEqual(1, names.Count);
+            Assert.AreEqual("Name", names[0]);
+        }
+
+        [TestMethod]
+        public void GetColumnNameList()
         {
             List<string> names = QueryHelper.GetColumnNameList(_model);
             Assert.AreEqual(2, names.Count);
@@ -71,7 +79,7 @@ namespace UnitTest.Database.Helpers
         }
 
         [TestMethod]
-        public void GetColumnNameListTest_Exclude()
+        public void GetColumnNameList_Exclude()
         {
             List<string> names = QueryHelper.GetColumnNameList(_model, [
                 "Id"
@@ -81,7 +89,7 @@ namespace UnitTest.Database.Helpers
         }
 
         [TestMethod]
-        public void GetColumnNameListTest_InvalidModel()
+        public void GetColumnNameList_InvalidModel()
         {
             try
             {
@@ -94,7 +102,7 @@ namespace UnitTest.Database.Helpers
         }
 
         [TestMethod]
-        public void GetColumnNameListTest_Generic()
+        public void GetColumnNameList_Generic()
         {
             List<string> names = QueryHelper.GetColumnNameList<TargetModel>();
             Assert.AreEqual(2, names.Count);
@@ -103,7 +111,7 @@ namespace UnitTest.Database.Helpers
         }
 
         [TestMethod]
-        public void GetColumnListTest()
+        public void GetColumnList()
         {
             List<KeyValuePair<string, string>> columns = QueryHelper.GetColumnList(_model, [
                 "Id"
@@ -114,7 +122,7 @@ namespace UnitTest.Database.Helpers
         }
 
         [TestMethod]
-        public void GetColumnListTest_InvalidModel()
+        public void GetColumnList_InvalidModel()
         {
             try
             {
@@ -126,6 +134,7 @@ namespace UnitTest.Database.Helpers
             }
         }
 
+        [Table("test")]
         private class TargetModel
         {
             [Column("id")]

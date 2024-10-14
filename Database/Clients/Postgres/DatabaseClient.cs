@@ -19,9 +19,9 @@ namespace SkillManagementApi.Database.Clients.Postgres
             return name;
         }
 
-        protected string GenerateColumnListQuery<T>()
+        protected string GenerateColumnListQuery<T>(List<string>? excludeColumns = null)
         {
-            List<string> names = QueryHelper.GetColumnNameList<T>();
+            List<string> names = QueryHelper.GetColumnNameList<T>(excludeColumns);
             List<string> paramNames = names.Select(name => $"\"{name}\"").ToList();
             string query = string.Join(',', paramNames);
             return query;
