@@ -158,8 +158,8 @@ namespace SkillManagementApi.Database.Clients.Postgres
             List<TagListItem> items;
             try
             {
-                string cte = $"{_schema}.tag";
-                string table = $"{_schema}.tag_list";
+                string cte = GetTableName<Tag>();
+                string table = GetTableName<TagListItem>();
                 string columns = GenerateColumnListQuery<TagListItem>();
                 string condition;
                 if (id != default)
