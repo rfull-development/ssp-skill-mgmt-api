@@ -8,7 +8,7 @@ using System;
 namespace Api.Client.Models
 {
     [Obsolete("This class is obsolete. Use SkillLinkListGetResponse instead.")]
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
     public partial class SkillLinkListResponse : global::Api.Client.Models.SkillLinkListGetResponse, IParsable
     #pragma warning restore CS1591

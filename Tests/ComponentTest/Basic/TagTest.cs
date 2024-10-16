@@ -130,7 +130,7 @@ namespace ComponentTest.Basic
                     Assert.Fail(response.ToString());
                     return;
                 }
-                Assert.AreEqual(users.Count, count);
+                Assert.AreEqual(count, users.Count);
             }
             catch (Exception exception)
             {
@@ -173,8 +173,8 @@ namespace ComponentTest.Basic
                     Assert.Fail("Failed to get response.");
                     return;
                 }
-                Assert.AreEqual(response.Id, id);
-                Assert.AreEqual(response.Name, name);
+                Assert.AreEqual(id, response.Id);
+                Assert.AreEqual(name, response.Name);
             }
             catch (Exception exception)
             {
@@ -244,7 +244,7 @@ namespace ComponentTest.Basic
                     Assert.Inconclusive();
                     return;
                 }
-                Assert.AreEqual(response.Name, name);
+                Assert.AreEqual(name, response.Name);
             }
             catch (Exception exception)
             {
@@ -316,7 +316,7 @@ namespace ComponentTest.Basic
                     Assert.Inconclusive();
                     return;
                 }
-                Assert.AreEqual(response.Name, name);
+                Assert.AreEqual(name, response.Name);
             }
             catch (Exception exception)
             {

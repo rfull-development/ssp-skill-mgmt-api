@@ -17,7 +17,7 @@ namespace Api.Client
     /// <summary>
     /// The main entry point of the SDK, exposes the configuration and the fluent API.
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class ApiClient : BaseRequestBuilder
     {
         /// <summary>The skills property</summary>

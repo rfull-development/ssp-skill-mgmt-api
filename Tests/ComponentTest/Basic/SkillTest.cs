@@ -132,7 +132,7 @@ namespace ComponentTest.Basic
                     Assert.Fail(response.ToString());
                     return;
                 }
-                Assert.AreEqual(users.Count, count);
+                Assert.AreEqual(count, users.Count);
             }
             catch (Exception exception)
             {
@@ -176,8 +176,8 @@ namespace ComponentTest.Basic
                     Assert.Fail("Failed to get response.");
                     return;
                 }
-                Assert.AreEqual(response.Id, id);
-                Assert.AreEqual(response.Name, name);
+                Assert.AreEqual(id, response.Id);
+                Assert.AreEqual(name, response.Name);
             }
             catch (Exception exception)
             {
@@ -249,7 +249,7 @@ namespace ComponentTest.Basic
                     Assert.Inconclusive();
                     return;
                 }
-                Assert.AreEqual(response.Name, name);
+                Assert.AreEqual(name, response.Name);
             }
             catch (Exception exception)
             {
@@ -321,7 +321,7 @@ namespace ComponentTest.Basic
                     Assert.Inconclusive();
                     return;
                 }
-                Assert.AreEqual(response.Name, name);
+                Assert.AreEqual(name, response.Name);
             }
             catch (Exception exception)
             {
@@ -443,7 +443,7 @@ namespace ComponentTest.Basic
                     Assert.Fail("Failed to get response.");
                     return;
                 }
-                Assert.AreEqual(response.Count, 0);
+                Assert.AreEqual(0, response.Count);
             }
             catch (Exception exception)
             {
@@ -529,7 +529,7 @@ namespace ComponentTest.Basic
                     Assert.Inconclusive();
                     return;
                 }
-                Assert.AreEqual(response.Count, exceptedTags.Count);
+                Assert.AreEqual(exceptedTags.Count, response.Count);
                 var tags = response.Tags;
                 if (tags is null)
                 {
@@ -698,7 +698,7 @@ namespace ComponentTest.Basic
                     Assert.Inconclusive();
                     return;
                 }
-                Assert.AreEqual(response.Count, 0);
+                Assert.AreEqual(0, response.Count);
             }
             catch (Exception exception)
             {
@@ -755,7 +755,7 @@ namespace ComponentTest.Basic
                     Assert.Fail("Failed to get response.");
                     return;
                 }
-                Assert.AreEqual(response.Count, 0);
+                Assert.AreEqual(0, response.Count);
             }
             catch (Exception exception)
             {
@@ -836,7 +836,7 @@ namespace ComponentTest.Basic
                     Assert.Inconclusive();
                     return;
                 }
-                Assert.AreEqual(response.Count, exceptedAliases.Count);
+                Assert.AreEqual(exceptedAliases.Count, response.Count);
                 var aliases = response.Aliases;
                 if (aliases is null)
                 {
@@ -1000,7 +1000,7 @@ namespace ComponentTest.Basic
                     Assert.Inconclusive();
                     return;
                 }
-                Assert.AreEqual(response.Count, 0);
+                Assert.AreEqual(0, response.Count);
             }
             catch (Exception exception)
             {
@@ -1057,7 +1057,7 @@ namespace ComponentTest.Basic
                     Assert.Fail("Failed to get response.");
                     return;
                 }
-                Assert.AreEqual(response.Count, 0);
+                Assert.AreEqual(0, response.Count);
             }
             catch (Exception exception)
             {
@@ -1122,7 +1122,7 @@ namespace ComponentTest.Basic
                     Assert.Inconclusive();
                     return;
                 }
-                Assert.AreEqual(response.Count, exceptedLinks.Count);
+                Assert.AreEqual(exceptedLinks.Count, response.Count);
                 var links = response.Links;
                 if (links is null)
                 {
@@ -1243,7 +1243,7 @@ namespace ComponentTest.Basic
                     Assert.Inconclusive();
                     return;
                 }
-                Assert.AreEqual(response.Count, 0);
+                Assert.AreEqual(0, response.Count);
             }
             catch (Exception exception)
             {
