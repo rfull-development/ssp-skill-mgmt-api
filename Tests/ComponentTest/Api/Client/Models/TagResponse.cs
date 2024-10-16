@@ -8,7 +8,7 @@ using System;
 namespace Api.Client.Models
 {
     [Obsolete("This class is obsolete. Use TagGetResponse instead.")]
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
     public partial class TagResponse : global::Api.Client.Models.TagGetResponse, IParsable
     #pragma warning restore CS1591
